@@ -1,9 +1,22 @@
 ## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying a pedagogical tool.
+Ce site web a été réalisé dans le cadre de ma formation à la Wild Code School
+Il a été réalisé suivant les consignes du Checkpoint 4, à savoir créer une appli web front et back avec une fonctionnalitée.
+Pour ce faire j'ai utilisé le template de la Wild afin d'être sur un environnemnt pré-configuré avec ESLint et Prettier afin de garder un code propre.
+
+J'utilise NPM pour la gestion des packages
+
+**Front :** 
+  - Axios
+  - SASS
+  - mUI (Material UI)
+
+**Back :** 
+  - Argon2
 
 ## Setup & Use
+
+- N'oubliez pas de paramétrer vos fichier .env
 
 ### Windows users
 
