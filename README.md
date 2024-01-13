@@ -10,6 +10,8 @@ J'utilise NPM pour la gestion des packages
   - Axios
   - SASS
   - mUI (Material UI)
+  - Markdown Editor for React
+  - Vis.js
 
 **Back :** 
   - Argon2
