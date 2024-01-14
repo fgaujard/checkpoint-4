@@ -2,3 +2,5 @@ node_modules
 coverage
 .env
 public/uploads/*
+
+package-lock.json
