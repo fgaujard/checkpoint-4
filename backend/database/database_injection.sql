@@ -2,7 +2,7 @@
 INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES 
 ("CLI", "Command Line Interface", "Interface en ligne de commande", 
   "## Mini-cours sur la CLI\n\nLa CLI (Command Line Interface) est un moyen puissant de communiquer avec un système d\'exploitation. Voici quelques commandes de base :\n\n- `cd` : Changer de répertoire\n- `ls` : Lister les fichiers\n- `mkdir` : Créer un répertoire\n\n```bash\n# Exemple d\'utilisation de la commande cd\ncd chemin/vers/le/dossier\n```", 
-  'Technology');
+  "Technology");
 
 -- HTML
 INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES 
@@ -110,19 +110,24 @@ INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES
 INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES 
 ("CRUD", "Create, Read, Update, Delete", "Opérations de base pour la gestion des données", 
   "## Mini-cours sur CRUD\n\nCRUD représente les opérations de base pour la gestion des données :\n\n- **Create** : Ajouter des données\n- **Read** : Lire des données\n- **Update** : Mettre à jour des données\n- **Delete** : Supprimer des données", 
-  "Database Operations");
+  "Coding Conventions");
 
 -- BREAD
 INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES 
 ("BREAD", "Browse, Read, Edit, Add, Delete", "Extensions du CRUD avec des opérations supplémentaires", 
   "## Mini-cours sur BREAD\n\nBREAD étend les opérations CRUD avec :\n\n- **Browse** : Parcourir les données\n- **Edit** : Éditer les données\n- **Add** : Ajouter de nouvelles données", 
-  "Database Operations");
+  "Coding Conventions");
 
 -- Pascal/Camel Case
 INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES 
 ("Pascal/Camel Case", "PascalCase et CamelCase", "Conventions de nommage pour les identifiants", 
   "## Mini-cours sur PascalCase et CamelCase\n\nPascalCase et CamelCase sont des conventions de nommage pour les identifiants dans le code. Exemples :\n\n- **PascalCase** : MyVariableName\n- **CamelCase** : myVariableName", 
   "Coding Conventions");
+
+INSERT INTO `keyword` (`title`, `acr`, `desc`, `content`, `category`) VALUES
+("NPM", "Node Package Manager", "Gestionnaire de paquets Node.js", 
+  "## Node Package Manager (NPM)\n\nNPM est le gestionnaire de paquets par défaut pour Node.js. Il permet d\'installer, de partager et de gérer les dépendances d\'un projet. Voici comment utiliser NPM :\n\n```bash\n# Installation d\'une dépendance\nnpm install package-name\n\n# Exécution d\'un script\nnpm run script-name\n```",
+  "Package Manager"); 
 
 -- Category
 
@@ -136,4 +141,5 @@ INSERT INTO `category` (`name`) VALUES
 ('Software Development'),
 ('Database Design'),
 ('Software Operations'),
-('Coding Conventions');
+('Coding Conventions'),
+('Package Manager');

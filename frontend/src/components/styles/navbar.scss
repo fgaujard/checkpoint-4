@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .navbar-divider {
+    width: 0.5px;
+    height: 2rem;
+    background-color: white;
+    margin: 0 0.5rem 0 0.5rem;
+  }
+
+  .navbar-home {
+    margin-left: 1rem;
+    height: 3rem;
+  }
+
+  .navbar-pages {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-home-text {
+    font-size: medium;
+    margin-right: 0.5rem;
+  }
+
+  .navbar-icon {
+    margin-right: 0.5rem;
+  }
+
+  .navbar-login {
+    margin-right: 1rem;
+  }
+}

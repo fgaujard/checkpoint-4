@@ -1,8 +1,15 @@
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+import "./app-global.scss";
+
 function App() {
   return (
     <>
-      <h1>Hello World !</h1>
-      <h1>Welcome</h1>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </>
   );
 }
