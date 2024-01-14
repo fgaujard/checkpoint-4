@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
@@ -44,15 +45,14 @@ function Navbar() {
           </Button>
           <div className="navbar-divider" />
         </div>
-        <Button
+        <IconButton
           color="inherit"
           component={Link}
           to="/connexion"
           className="navbar-login"
         >
-          <AccountCircleOutlinedIcon className="navbar-icon" />
-          Login
-        </Button>
+          <AccountCircleOutlinedIcon />
+        </IconButton>
       </AppBar>
     </div>
   );
