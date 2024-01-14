@@ -8,6 +8,7 @@ import Accueil from "./pages/Accueil";
 import Keywords from "./pages/Keywords";
 import Login from "./pages/Login";
 import Basics from "./pages/Basics";
+import Map from "./pages/Map";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         element: <Basics />,
       },
       { path: "/connexion", element: <Login /> },
+      {
+        path: "/map",
+        element: <Map />,
+      },
       /*
       {
         path: "/mot-clé/:id",

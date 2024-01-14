@@ -1,9 +1,9 @@
+import OneKeyword from "../components/OneKeyword";
+
 function Keywords() {
   return (
     <div className="body-content">
-      <p>Keywords</p>
-      <h2>Hello World !</h2>
-      <h3>Welcome</h3>
+      <OneKeyword />
     </div>
   );
 }
