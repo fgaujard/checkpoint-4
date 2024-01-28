@@ -1,82 +1,52 @@
-import { useEffect } from "react";
+// import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Network } from "vis-network/standalone/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 
+import { usePagesContext } from "../contexts/PagesContext";
+
+// import {useLoaderData} from "react-router-dom";
+
 function Map() {
+  const { setActiveButton } = usePagesContext();
+  setActiveButton("/map");
+
+  const [networkHeight, setNetworkHeight] = useState(window.innerHeight);
+  // const allKeywordsList = useLoaderData()[0];
+  // const categories = useLoaderData()[1];
+
   useEffect(() => {
     // Sample data
     const nodes = [
-      {
-        id: "Development Tools",
-        label: "Development Tools",
-        category: "Development Tools",
-      },
-      {
-        id: "Web Development",
-        label: "Web Development",
-        category: "Web Development",
-      },
-      {
-        id: "Software Architecture",
-        label: "Software Architecture",
-        category: "Software Architecture",
-      },
-      { id: "CLI", label: "CLI", category: "Development Tools" },
-      { id: "HTML", label: "HTML", category: "Web Development" },
-      { id: "CSS", label: "CSS", category: "Web Development" },
-      { id: "MVP", label: "MVP", category: "Software Architecture" },
-      { id: "SEO", label: "SEO", category: "Marketing" },
-      { id: "Hook", label: "Hook", category: "Software Development" },
-      {
-        id: "Middleware",
-        label: "Middleware",
-        category: "Software Architecture",
-      },
-      { id: "IDLE", label: "IDLE", category: "Software Operations" },
-      {
-        id: "Framework",
-        label: "Framework",
-        category: "Software Architecture",
-      },
-      { id: "Library", label: "Library", category: "Software Development" },
-      { id: "MVC", label: "MVC", category: "Software Architecture" },
-      { id: "Merise", label: "Merise", category: "Database Design" },
-      { id: "MCD", label: "MCD", category: "Database Design" },
-      { id: "MLD", label: "MLD", category: "Database Design" },
-      { id: "MPD", label: "MPD", category: "Database Design" },
-      { id: "API", label: "API", category: "API" },
-      { id: "REST", label: "REST", category: "API" },
-      { id: "CORS", label: "CORS", category: "API" },
-      { id: "CRUD", label: "CRUD", category: "Development Process" },
-      { id: "BREAD", label: "BREAD", category: "Development Process" },
-      {
-        id: "PascalCamelCase",
-        label: "Pascal/Camel Case",
-        category: "Coding Conventions",
-      },
+      { id: 0, label: "Web Development", group: 1 },
+      { id: 1, label: "HTML", group: 1 },
+      { id: 2, label: "CSS", group: 1 },
+      { id: 3, label: "MVP", group: 1 },
+      { id: 4, label: "Hook", group: 1 },
+      { id: 5, label: "CORS", group: 1 },
+      { id: 6, label: "Coding Conventions", group: 2 },
+      { id: 7, label: "CRUD", group: 2 },
+      { id: 8, label: "BREAD", group: 2 },
+      { id: 9, label: "Pascale/Camel Case", group: 2 },
+      { id: 10, label: "Software Development", group: 3 },
+      { id: 11, label: "Framework", group: 3 },
+      { id: 12, label: "Library", group: 3 },
+      { id: 13, label: "Merise", group: 3 },
     ];
 
+    // create some edges
     const edges = [
-      { from: "CLI", to: "Development Tools" },
-      { from: "HTML", to: "Web Development" },
-      { from: "CSS", to: "Web Development" },
-      { from: "MVP", to: "Software Architecture" },
-      { from: "SEO", to: "Marketing" },
-      { from: "Hook", to: "Software Development" },
-      { from: "Middleware", to: "Software Architecture" },
-      { from: "IDLE", to: "Software Operations" },
-      { from: "Framework", to: "Software Architecture" },
-      { from: "Library", to: "Software Development" },
-      { from: "MVC", to: "Software Architecture" },
-      { from: "Merise", to: "Database Design" },
-      { from: "MCD", to: "Database Design" },
-      { from: "MLD", to: "Database Design" },
-      { from: "MPD", to: "Database Design" },
-      { from: "REST", to: "API" },
-      { from: "CORS", to: "API" },
-      { from: "CRUD", to: "Development Process" },
-      { from: "BREAD", to: "Development Process" },
-      { from: "PascalCamelCase", to: "Coding Conventions" },
+      { from: 1, to: 0 },
+      { from: 2, to: 0 },
+      { from: 3, to: 0 },
+      { from: 4, to: 0 },
+      { from: 5, to: 0 },
+      { from: 7, to: 6 },
+      { from: 8, to: 6 },
+      { from: 9, to: 6 },
+      { from: 11, to: 10 },
+      { from: 12, to: 10 },
+      { from: 13, to: 10 },
     ];
 
     // Create a network
@@ -84,17 +54,49 @@ function Map() {
     const data = { nodes, edges };
     const options = {
       nodes: {
-        shape: "box",
-        color: {
-          background: "lightblue",
-          border: "blue",
+        shape: "dot",
+        size: 16,
+        shadow: true,
+        font: {
+          color: "black",
         },
       },
       edges: {
-        color: "gray",
+        shadow: true,
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 100, // Delay before prompt toolTip on hover (ms)
+      },
+      physics: {
+        forceAtlas2Based: {
+          gravitationalConstant: -26,
+          centralGravity: 0.005,
+          springLength: 200,
+          springConstant: 0.25,
+        },
+        maxVelocity: 146,
+        solver: "forceAtlas2Based",
+        timestep: 0.35,
+        stabilization: { iterations: 150 },
       },
     };
+
     const network = new Network(container, data, options);
+
+    nodes.forEach((node) => {
+      const nodeObject = network.body.nodes[node.id];
+      nodeObject.setOptions({ title: `${node.label}` });
+    });
+
+    const updateNetworkHeight = () => {
+      const windowHeight = window.innerHeight;
+      setNetworkHeight(windowHeight);
+    };
+
+    updateNetworkHeight();
+
+    window.addEventListener("resize", updateNetworkHeight);
 
     return () => {
       // Cleanup when component unmounts
@@ -103,7 +105,11 @@ function Map() {
   }, []); // Run only on component mount
 
   return (
-    <div className="body-content" id="network" style={{ height: "780px" }} />
+    <div
+      className="body-content-map"
+      id="network"
+      style={{ height: `calc(${networkHeight}px - 48px)` }}
+    />
   );
 }
 

@@ -4,9 +4,17 @@
 
 // Import the manager modules responsible for handling data operations on the tables
 const UserManager = require("./models/UserManager");
+const KeywordManager = require("./models/KeywordManager");
+const KeyCategoryManager = require("./models/KeyCategoryManager");
+const PackageManager = require("./models/PackageManager");
+const PackCategoryManager = require("./models/PackCategoryManager");
 
 const managers = [
   UserManager,
+  KeywordManager,
+  KeyCategoryManager,
+  PackageManager,
+  PackCategoryManager,
   // Add other managers here
 ];
 

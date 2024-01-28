@@ -1,16 +1,15 @@
 import { usePagesContext } from "../contexts/PagesContext";
 
-function Basics() {
+function Culture() {
   const { setActiveButton } = usePagesContext();
-  setActiveButton("/basics");
-
+  setActiveButton("/culture-dev");
   return (
     <div className="body-content">
-      <p>Basics</p>
+      <p>Culture</p>
       <h2>Hello World !</h2>
       <h3>Welcome</h3>
     </div>
   );
 }
 
-export default Basics;
+export default Culture;

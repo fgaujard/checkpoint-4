@@ -143,3 +143,14 @@ INSERT INTO `category` (`name`) VALUES
 ('Software Operations'),
 ('Coding Conventions'),
 ('Package Manager');
+
+INSERT INTO `package` (`name`, `description`, `content`, `category_id`) VALUES
+("mUI", "Material UI",
+  "## Node Package Manager (NPM)\n\nNPM est le gestionnaire de paquets par défaut pour Node.js. Il permet d\'installer, de partager et de gérer les dépendances d\'un projet. Voici comment utiliser NPM :\n\n```bash\n# Installation d\'une dépendance\nnpm install package-name\n\n# Exécution d\'un script\nnpm run script-name\n```",
+  "1"); 
+
+INSERT INTO `package_category` (`name`) VALUES
+('front-end'),
+('back-end'),
+('both'),
+('dev')

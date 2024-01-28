@@ -1,16 +1,13 @@
 import { usePagesContext } from "../contexts/PagesContext";
 
-function Basics() {
+function Profil() {
   const { setActiveButton } = usePagesContext();
-  setActiveButton("/basics");
-
+  setActiveButton("/desabled");
   return (
     <div className="body-content">
-      <p>Basics</p>
-      <h2>Hello World !</h2>
-      <h3>Welcome</h3>
+      <h1>Profil</h1>
     </div>
   );
 }
 
-export default Basics;
+export default Profil;

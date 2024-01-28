@@ -15,21 +15,34 @@
     height: 3rem;
   }
 
+  .navbar-home-text {
+    font-size: medium;
+  }
+
+  .navbar-home-icon {
+    margin: 0 0 0 0.5rem;
+    padding-top: 0.4rem;
+  }
+
   .navbar-pages {
     display: flex;
     align-items: center;
   }
 
-  .navbar-home-text {
-    font-size: medium;
-    margin-right: 0.5rem;
-  }
-
-  .navbar-icon {
-    margin-left: 0.5rem;
+  .navbar-pages-text {
+    margin: 0 0.5rem 0 0.1rem;
   }
 
   .navbar-login {
     margin-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 1051px) {
+  .navbar-pages-text {
+    display: none;
+  }
+  .navbar-home-icon {
+    display: none;
   }
 }

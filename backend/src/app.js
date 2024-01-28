@@ -32,6 +32,7 @@ app.use(
     origin: [
       process.env.FRONTEND_URL, // keep this one, after checking the value in `backend/.env`
     ],
+    credentials: true,
   })
 );
 
@@ -68,8 +69,9 @@ app.use(express.json());
 
 // Then, require the module and use it as middleware in your Express application:
 
-// const cookieParser = require("cookie-parser");
-// app.use(cookieParser());
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 
 // Once `cookie-parser` is set up, you can read and set cookies in your routes.
 // For example, to set a cookie named "username" with the value "john":

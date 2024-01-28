@@ -1,16 +1,16 @@
 import { usePagesContext } from "../contexts/PagesContext";
 
-function Basics() {
+function Recap() {
   const { setActiveButton } = usePagesContext();
-  setActiveButton("/basics");
+  setActiveButton("/recap");
 
   return (
     <div className="body-content">
-      <p>Basics</p>
+      <p>Recap</p>
       <h2>Hello World !</h2>
       <h3>Welcome</h3>
     </div>
   );
 }
 
-export default Basics;
+export default Recap;

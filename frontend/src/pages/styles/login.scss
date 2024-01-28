@@ -1,12 +1,15 @@
 .wrapper {
   overflow: hidden;
   width: 100%;
-  min-width: 250px;
+  min-width: 200px;
   max-width: 350px;
-  background: white;
+  margin: 0 2rem;
   padding: 1.5rem;
-  border-radius: 2rem;
-  box-shadow: 0px 15px 20px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: linear-gradient(350deg, #e6e6e6, #ffffff);
+  box-shadow:
+    10px 10px 45px #cfcfcf,
+    -10px -10px 45px #ffffff;
 }
 
 .slide-controls {
@@ -35,7 +38,7 @@
 }
 
 .signup {
-  color: #080808;
+  color: #292929;
 }
 
 .slider-tab {
@@ -45,7 +48,7 @@
   left: 0;
   z-index: 0;
   border-radius: 1rem;
-  background: #080808;
+  background: #292929;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -63,10 +66,10 @@ input[type="radio"] {
 }
 
 #signup:checked ~ label.login {
-  color: #080808;
+  color: #292929;
 }
 #login:checked ~ label.signup {
-  color: #080808;
+  color: #292929;
 }
 
 #login:checked ~ label.login {

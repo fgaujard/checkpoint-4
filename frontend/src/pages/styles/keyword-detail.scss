@@ -1,0 +1,43 @@
+.keyword-detail {
+  margin: 7rem auto 3.5rem auto;
+  border-radius: 1rem;
+  background: white;
+  box-shadow:
+    41px 41px 82px #c4c4c4,
+    -41px -41px 82px #ffffff;
+  h2 {
+    margin-top: 0;
+    width: auto;
+  }
+}
+
+.keyword-detail-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyword-detail-category {
+  text-align: right;
+  align-items: baseline;
+  .keyword-detail-desc {
+    text-align: left;
+    margin-right: 5rem;
+  }
+}
+
+.keyword-detail-category-text {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1110px) {
+  .keyword-detail {
+    margin: 6rem 1rem 6rem 1rem;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .keyword-detail-category {
+    display: flex;
+    flex-direction: column;
+  }
+}

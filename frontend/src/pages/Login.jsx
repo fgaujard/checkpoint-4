@@ -1,15 +1,21 @@
+// Import React here
 import { useState } from "react";
 
-import TypeOfForm from "../components/TypeOfFrom";
+// Import my components
+import LoginForm from "../components/form/LoginForm";
+import RegisterFrom from "../components/form/RegisterForm";
 
+import { usePagesContext } from "../contexts/PagesContext";
+
+// import additional style here
 import "./styles/login.scss";
 
 function Login() {
   const [checkbox, setCheckbox] = useState(true);
+  const { setActiveButton } = usePagesContext();
+  setActiveButton("/desabled");
 
   const handleChange = () => {
-    // document.getElementsByTagName("form")[2].reset();
-    // if (!checkbox) resetAllErrMsgSign();
     return !checkbox ? setCheckbox(true) : setCheckbox(false);
   };
 
@@ -41,7 +47,7 @@ function Login() {
             <div className="slider-tab" />
           </div>
         </div>
-        <TypeOfForm checkbox={checkbox} setCheckbox={setCheckbox} />
+        {checkbox ? <LoginForm /> : <RegisterFrom />}
       </div>
     </div>
   );
