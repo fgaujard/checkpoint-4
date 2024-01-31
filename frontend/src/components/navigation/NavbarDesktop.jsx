@@ -55,13 +55,8 @@ function Navbar({ isLogin, isAdmin, username }) {
           </Button>
           {isLogin && <Pages />}
         </div>
-        {isLogin && (
-          <AccountMenu
-            isLogin={isLogin}
-            isAdmin={isAdmin}
-            username={username}
-          />
-        )}
+
+        <AccountMenu isLogin={isLogin} isAdmin={isAdmin} username={username} />
       </AppBar>
     </div>
   );

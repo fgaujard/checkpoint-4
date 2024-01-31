@@ -19,7 +19,7 @@ function Keyword() {
     return isEdit ? (
       <KeywordEdit setIsEdit={setIsEdit} />
     ) : (
-      <KeywordDetail setIsEdit={setIsEdit} />
+      <KeywordDetail setIsEdit={setIsEdit} userId={user.id} />
     );
   }
 }

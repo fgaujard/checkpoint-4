@@ -1,5 +1,4 @@
 // Import React here
-import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 // Import my components
@@ -16,10 +15,8 @@ function Login() {
 
   if (user.login) window.location.href = "/recap";
   else {
-    const { setActiveButton } = usePagesContext();
+    const { setActiveButton, checkbox, setCheckbox } = usePagesContext();
     setActiveButton("/desabled");
-
-    const [checkbox, setCheckbox] = useState(true);
 
     if (user.login) window.location.href = "/";
     else {

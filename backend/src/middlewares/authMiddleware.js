@@ -44,7 +44,7 @@ const login = async (req, res, next) => {
           { expiresIn: "1h" }
         );
         // Respond with the Token of the user, in JSON format
-        res.cookie("token", token, {
+        res.cookie("wiki_wilder_js_token", token, {
           httpOnly: true,
           maxAge: 3600000, // 1h in ms
         });
@@ -63,7 +63,7 @@ const login = async (req, res, next) => {
 
 const verifyToken = async (req, res, next) => {
   try {
-    const { token } = req.cookies;
+    const { wiki_wilder_js_token: token } = req.cookies;
 
     if (!token) {
       res.status(401).json({ error: "No token founded" });
@@ -80,8 +80,22 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
+const logout = (req, res, next) => {
+  try {
+    const { wiki_wilder_js_token: token } = req.cookies;
+    if (token) {
+      res.clearCookie("wiki_wilder_js_token");
+      res.status(200).json({ message: "Logged out successfully" });
+    } else res.status(401).json({ error: "Internal error" });
+  } catch (err) {
+    res.status(401).json({ error: "Internal error" });
+    next(err);
+  }
+};
+
 module.exports = {
   hashPwd,
   login,
   verifyToken,
+  logout,
 };

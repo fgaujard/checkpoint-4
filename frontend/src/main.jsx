@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
 
 import { PagesProvider } from "./contexts/PagesContext";
-import { UserProvider } from "./contexts/UserContext";
 
 // Import JSX content elements here
 
@@ -27,6 +26,8 @@ import Map from "./pages/Map";
 import Login from "./pages/Login";
 import Profil from "./pages/Profil";
 import Admin from "./pages/Admin";
+
+import NotFound from "./pages/NotFound";
 
 /* ************************************************************************ */
 /* Fetch data relative of keywords and associated categories for my rooter  */
@@ -209,7 +210,13 @@ const router = createBrowserRouter([
           return { keyword, user };
         },
       },
-      { path: "/create-keyword", element: <KeywordCreate /> },
+      {
+        path: "/create-keyword",
+        element: <KeywordCreate />,
+        loader: () => {
+          return VerifyToken();
+        },
+      },
       {
         path: "/basics",
         element: <Basics />,
@@ -251,11 +258,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: (
-          <h1 style={{ marginTop: "10rem", textAlign: "center" }}>
-            404 NOT FOUND
-          </h1>
-        ),
+        element: <NotFound />,
       },
     ],
   },
@@ -265,10 +268,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <PagesProvider>
-        <RouterProvider router={router} />
-      </PagesProvider>
-    </UserProvider>
+    <PagesProvider>
+      <RouterProvider router={router} />
+    </PagesProvider>
   </React.StrictMode>
 );

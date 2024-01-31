@@ -21,7 +21,7 @@ import KeywordCard from "../components/keyword/KeywordCard";
 // import additional style here
 import "./styles/keywords-list.scss";
 
-function mapKeywordList(keywords) {
+function mapKeywordList(keywords, userId) {
   return keywords.map((keyword) => (
     <li key={keyword.id} className="keyword-list-content">
       <KeywordCard
@@ -31,6 +31,7 @@ function mapKeywordList(keywords) {
         description={keyword.description}
         content={keyword.content}
         category={keyword.category}
+        userId={userId}
       />
     </li>
   ));
@@ -145,7 +146,9 @@ function KeywordsList() {
             ))}
           </Select>
         </div>
-        <ul className="keywords-list">{mapKeywordList(filteredKeywords)}</ul>
+        <ul className="keywords-list">
+          {mapKeywordList(filteredKeywords, user.id)}
+        </ul>
       </div>
     );
   }

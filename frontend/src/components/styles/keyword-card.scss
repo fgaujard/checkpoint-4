@@ -29,6 +29,10 @@
     .keyword-card-category {
       margin-top: 0;
     }
+    .keyword-card-title-right {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
@@ -45,11 +49,6 @@
           text-align: left;
           margin-right: 1.5rem;
         }
-      }
-
-      .keyword-card-title-right {
-        display: flex;
-        align-items: center;
       }
 
       .keyword-card-acronyme {
@@ -85,5 +84,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .keyword-card-button {
+    width: 100%;
   }
 }

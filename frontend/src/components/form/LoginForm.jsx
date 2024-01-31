@@ -16,6 +16,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
+import { styleInput, styleButton } from "../../mUI_style";
+
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -23,37 +25,6 @@ function LoginForm() {
     username: "",
     password: "",
   });
-
-  const styleInput = {
-    m: 1,
-    width: "100%",
-    margin: "0 0 1rem 0",
-    "& label": {
-      color: "black",
-    },
-    "& label.Mui-focused": {
-      color: "black",
-    },
-    "& .MuiFilledInput-underline:after": {
-      borderBottomColor: "black",
-    },
-    "& .MuiFilledInput-underline.Mui-error:after": {
-      borderBottomColor: "black",
-    },
-    "& .MuiFilledInput-root": {
-      borderRadius: "1rem 1rem 0 0",
-    },
-  };
-
-  const styleButton = {
-    borderRadius: "12px",
-    backgroundColor: "#292929",
-    transition: "transform 250ms",
-    "&:hover": {
-      backgroundColor: "#292929",
-      transform: "scale(0.9)",
-    },
-  };
 
   const handleChange = (event) => {
     setOpenSession({

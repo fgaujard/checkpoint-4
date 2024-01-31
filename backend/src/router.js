@@ -18,6 +18,7 @@ router.get("/users/:username", userController.readByUsername); // Route to get a
 router.post("/register", AuthMiddleware.hashPwd, userController.add);
 router.post("/login", AuthMiddleware.login); // Route to add a new user
 router.get("/verify-token", AuthMiddleware.verifyToken); // Route to add a new user
+router.get("/logout", AuthMiddleware.logout);
 
 /* ************************************************************************* */
 // Recap SACOD
@@ -56,6 +57,18 @@ router.delete("/keyword/:id", keywordController.destroy); // Route to get a spec
 const keyCategoryController = require("./controllers/keyCategoryController");
 
 router.get("/categories", keyCategoryController.browse); // Route to get a list of keywords
+
+/* ************************************************************************* */
+// Keywords
+/* ************************************************************************* */
+
+// Import keywordController module for handling item-related operations
+const keyFavController = require("./controllers/keyFavController");
+
+router.get("/keyfav", keyFavController.browse); // Route to get a list of keywords
+router.get("/keyfav/:id", keyFavController.readById);
+router.post("/keyfav", keyFavController.add); // Route to get a list of keywords
+router.delete("/keyfav/:id", keyFavController.destroy); // Route to get a specific keyword by title
 
 /* ************************************************************************* */
 // Basics dev Web

@@ -15,7 +15,7 @@ import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import { usePagesContext } from "../../contexts/PagesContext";
 
 function Pages() {
-  const { activeButton, handleClickPage } = usePagesContext();
+  const { activeButton } = usePagesContext();
 
   const isButtonActive = (buttonName) => {
     return activeButton === buttonName;
@@ -46,7 +46,6 @@ function Pages() {
         sx={isButtonActive("/culture-dev") ? activeStyleButton : styleButton}
         component={Link}
         to="/culture-dev"
-        onClick={() => handleClickPage("/culture-dev")}
       >
         <p className="navbar-pages-text">CULTURE DEV</p>
         <AutoStoriesOutlinedIcon fontSize="small" className="navbar-icon" />
@@ -57,7 +56,6 @@ function Pages() {
         sx={isButtonActive("/recap") ? activeStyleButton : styleButton}
         component={Link}
         to="/recap"
-        onClick={() => handleClickPage("/recap")}
       >
         <p className="navbar-pages-text">Récap</p>
         <FolderOpenOutlinedIcon className="navbar-icon" />
@@ -68,7 +66,6 @@ function Pages() {
         sx={isButtonActive("/keywords") ? activeStyleButton : styleButton}
         component={Link}
         to="/keywords"
-        onClick={() => handleClickPage("/keywords")}
       >
         <p className="navbar-pages-text">MOTS-CLÉS</p>
         <AbcOutlinedIcon className="navbar-icon" />
@@ -79,7 +76,6 @@ function Pages() {
         sx={isButtonActive("/basics") ? activeStyleButton : styleButton}
         component={Link}
         to="/basics"
-        onClick={() => handleClickPage("/basics")}
       >
         <p className="navbar-pages-text">BASICS</p>
         <CodeOutlinedIcon className="navbar-icon" />
@@ -90,7 +86,6 @@ function Pages() {
         sx={isButtonActive("/packages") ? activeStyleButton : styleButton}
         component={Link}
         to="/packages"
-        onClick={() => handleClickPage("/packages")}
       >
         <p className="navbar-pages-text">Packages</p>
         <WidgetsOutlinedIcon fontSize="small" className="navbar-icon" />
@@ -101,7 +96,6 @@ function Pages() {
         sx={isButtonActive("/map") ? activeStyleButton : styleButton}
         component={Link}
         to="/map"
-        onClick={() => handleClickPage("/map")}
       >
         <p className="navbar-pages-text">MAP</p>
         <HubOutlinedIcon fontSize="small" className="navbar-icon" />
