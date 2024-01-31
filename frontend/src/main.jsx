@@ -3,8 +3,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
 
 import { PagesProvider } from "./contexts/PagesContext";
+import { UserProvider } from "./contexts/UserContext";
 
 // Import JSX content elements here
 
@@ -44,17 +46,31 @@ function fetchAllTips() {
   });
 }
 
-function fetchKeyword(name) {
-  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/keyword/${name}`).then(
-    (keyword) => {
-      // check if the response is ok
-      if (!keyword.ok) {
-        throw new Error("Network response was not ok");
-      }
-      // return all datas from one keyword in JSON
-      return keyword.json();
+function fetchAllTipsId() {
+  return Promise.all([
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/keyword-with-id`),
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`),
+  ]).then(([keywords, categories]) => {
+    // check if the response is ok
+    if (!keywords.ok || !categories.ok) {
+      throw new Error("Network response was not ok");
     }
-  );
+    // return an array of keywords and categories accociated, in JSON
+    return Promise.all([keywords.json(), categories.json()]);
+  });
+}
+
+function fetchKeyword(acronyme) {
+  return fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/api/keyword/${acronyme}`
+  ).then((keyword) => {
+    // check if the response is ok
+    if (!keyword.ok) {
+      throw new Error("Network response was not ok");
+    }
+    // return all datas from one keyword in JSON
+    return keyword.json();
+  });
 }
 
 /* ************************************************************************ */
@@ -94,20 +110,39 @@ function fetchBasics() {
 /* ************************************************************************ */
 /*              Fetch data relative of "users" for my rooter                */
 /* ************************************************************************ */
-/*
-function fetchProfil(username) {
-  return fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/api/users/${username}`
-  ).then((user) => {
-    // check if the response is ok
-    if (!user.ok) {
-      throw new Error("Network response was not ok");
-    }
-    // return selected datas from one user in JSON
-    return user.json();
-  });
+
+function VerifyToken() {
+  return axios
+    .get(`${import.meta.env.VITE_BACKEND_URL}/api/verify-token`, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      const response = res.data;
+      const user = {
+        id: response.id,
+        username: response.username,
+        email: response.email,
+        role: response.user_role,
+        team: response.user_team,
+        admin: res.data.is_admin.data[0] === 1,
+        login: true,
+      };
+      return user;
+    })
+    .catch(() => {
+      const user = {
+        id: null,
+        username: null,
+        email: null,
+        role: null,
+        team: null,
+        admin: false,
+        login: false,
+      };
+      return user;
+    });
 }
-*/
+
 /* ************************************************************************ */
 /*             Fetch datas relative of "Packages" for my rooter             */
 /* ************************************************************************ */
@@ -132,6 +167,9 @@ function fetchPackages() {
 const router = createBrowserRouter([
   {
     element: <App />,
+    loader: () => {
+      return VerifyToken();
+    },
     children: [
       { path: "/", element: <Accueil /> },
       {
@@ -146,22 +184,29 @@ const router = createBrowserRouter([
         path: "/recap",
         element: <Recap />,
         loader: () => {
-          // return fetchProfil();
-          return null;
+          return VerifyToken();
         },
       },
       {
         path: "/keywords",
         element: <KeywordsList />,
-        loader: () => {
-          return fetchAllTips();
+        loader: async () => {
+          const [allTips, user] = await Promise.all([
+            fetchAllTips(),
+            VerifyToken(),
+          ]);
+          return { allTips, user };
         },
       },
       {
         path: "/keywords/:name",
         element: <Keyword />,
-        loader: ({ params }) => {
-          return fetchKeyword(params.name);
+        loader: async ({ params }) => {
+          const [keyword, user] = await Promise.all([
+            fetchKeyword(params.name),
+            VerifyToken(),
+          ]);
+          return { keyword, user };
         },
       },
       { path: "/create-keyword", element: <KeywordCreate /> },
@@ -169,32 +214,39 @@ const router = createBrowserRouter([
         path: "/basics",
         element: <Basics />,
         loader: () => {
-          // return fetchBasics();
-          return null;
+          return VerifyToken();
         },
       },
       {
         path: "/map",
         element: <Map />,
-        loader: () => {
-          return fetchAllTips();
+        loader: async () => {
+          const [allTips, user] = await Promise.all([
+            fetchAllTipsId(),
+            VerifyToken(),
+          ]);
+          return { allTips, user };
         },
       },
-      { path: "/login", element: <Login /> },
+      {
+        path: "/login",
+        element: <Login />,
+        loader: () => {
+          return VerifyToken();
+        },
+      },
       {
         path: "/profil",
         element: <Profil />,
         loader: () => {
-          // return fetchProfil();
-          return null;
+          return VerifyToken();
         },
       },
       {
         path: "/administration",
         element: <Admin />,
         loader: () => {
-          // return fetchProfil();
-          return null;
+          return VerifyToken();
         },
       },
       {
@@ -213,8 +265,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <PagesProvider>
-      <RouterProvider router={router} />
-    </PagesProvider>
+    <UserProvider>
+      <PagesProvider>
+        <RouterProvider router={router} />
+      </PagesProvider>
+    </UserProvider>
   </React.StrictMode>
 );

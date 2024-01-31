@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import Navbar from "./components/navigation/NavbarDesktop";
 import HeaderMobile from "./components/navigation/HeaderMobile";
 import ToolBarMobile from "./components/navigation/ToolBarMobile";
@@ -6,12 +6,22 @@ import ToolBarMobile from "./components/navigation/ToolBarMobile";
 import "./app-global.scss";
 
 function App() {
+  const user = useLoaderData();
+
   return (
     <>
-      <Navbar />
-      <HeaderMobile />
+      <Navbar
+        isLogin={user.login}
+        isAdmin={user.admin}
+        username={user.username}
+      />
+      <HeaderMobile
+        isLogin={user.login}
+        isAdmin={user.admin}
+        username={user.username}
+      />
       <Outlet />
-      <ToolBarMobile />
+      <ToolBarMobile isLogin={user.login} />
     </>
   );
 }

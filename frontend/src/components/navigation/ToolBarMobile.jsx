@@ -1,6 +1,4 @@
-// Import React here
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 // Import mUI components here
 import AppBar from "@mui/material/AppBar";
@@ -8,12 +6,13 @@ import Toolbar from "@mui/material/Toolbar";
 
 import Pages from "./Pages";
 
+import { usePagesContext } from "../../contexts/PagesContext";
+
 // import additional style here
 import "../styles/navbar.scss";
 
-function ToolBarMobile() {
-  const cheminUrl = useLocation().pathname;
-  const [activeButton, setActiveButton] = useState(cheminUrl);
+function ToolBarMobile({ isLogin }) {
+  const { setActiveButton, activeButton } = usePagesContext();
 
   return (
     <div className="mobile-mode">
@@ -29,15 +28,20 @@ function ToolBarMobile() {
           justifyContent: "center",
         }}
       >
-        <Toolbar>
-          <Pages
-            activeButton={activeButton}
-            setActiveButton={setActiveButton}
-          />
-        </Toolbar>
+        {isLogin && (
+          <Toolbar>
+            <Pages
+              activeButton={activeButton}
+              setActiveButton={setActiveButton}
+            />
+          </Toolbar>
+        )}
       </AppBar>
     </div>
   );
 }
+ToolBarMobile.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+};
 
 export default ToolBarMobile;

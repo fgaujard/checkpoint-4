@@ -1,23 +1,34 @@
 -- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
-USE wiki_wilder;
+USE wiki_wilder_js;
 
 -- All tables relative to users
 
+-- SACOD JURASCRIPT etc -- 
+CREATE TABLE `user_team` (
+    `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(30) UNIQUE NOT NULL, 
+    `formateur_id` INT NOT NULL
+);
+
+-- Wilder DWWM CDA Formateur --
 CREATE TABLE `user_role` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(20) UNIQUE NOT NULL,
+    `name` VARCHAR(40) UNIQUE NOT NULL,
+    `acronyme` VARCHAR(8) UNIQUE NOT NULL
 );
 
 CREATE TABLE `user` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(20) UNIQUE NOT NULL,
-    `email` VARCHAR(80) UNIQUE NOT NULL,
+    `email` VARCHAR(80) UNIQUE,
     `password` VARCHAR(255) NOT NULL,
-    `is_admin` BOOLEAN DEFAULT 0,
-    `role_id` INT NOT NULL,
-    FOREIGN KEY (`role_id`) REFERENCES user_role(id)
+    `is_admin` BIT DEFAULT 0,
+    `role_id` INT,
+    `team_id` INT,
+    FOREIGN KEY (`role_id`) REFERENCES `user_role`(id),
+    FOREIGN KEY (`team_id`) REFERENCES `user_team`(id)
 );
 
 -- ----------------------------- --
@@ -27,7 +38,7 @@ CREATE TABLE `user` (
 CREATE TABLE `recap` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `date` DATE NOT NULL,
-    `content` VARCHAR(10000) NOT NULL,
+    `content` TEXT NOT NULL
 );
 
 -- ------------------------------- --
@@ -42,11 +53,11 @@ CREATE TABLE `keyword_category` (
 CREATE TABLE `keyword` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `acronyme` VARCHAR(15) UNIQUE NOT NULL,
-    `name` VARCHAR(25) UNIQUE NOT NULL,
+    `name` VARCHAR(50) UNIQUE NOT NULL,
     `description` VARCHAR(150) NOT NULL,
     `content` TEXT NOT NULL,
     `category_id` INT NOT NULL,
-    FOREIGN KEY (`category_id`) REFERENCES keyword_category(id)
+    FOREIGN KEY (`category_id`) REFERENCES `keyword_category`(id)
 );
 
 -- ------------------------------- --
@@ -57,7 +68,7 @@ CREATE TABLE `basics` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(25) UNIQUE NOT NULL,
     `description` VARCHAR(150) UNIQUE NOT NULL,
-    `content` VARCHAR(10000) UNIQUE NOT NULL,
+    `content` TEXT NOT NULL
 );
 
 -- ------------------------------- -- 
@@ -75,7 +86,26 @@ CREATE TABLE `package` (
     `description` VARCHAR(150) UNIQUE NOT NULL,
     `content` TEXT NOT NULL,
     `category_id` INT NOT NULL,
-    FOREIGN KEY (`category_id`) REFERENCES package_category(id)
+    FOREIGN KEY (`category_id`) REFERENCES `package_category`(id)
 );
 
 -- ------------------------------- --
+
+
+CREATE TABLE `keyword_fav`
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `keyword_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    FOREIGN KEY (`keyword_id`) REFERENCES `keyword`(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE `package_fav`
+(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `package_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    FOREIGN KEY (`package_id`) REFERENCES `keyword`(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);

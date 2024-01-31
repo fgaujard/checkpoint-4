@@ -8,7 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 
 import "../styles/keyword-card.scss";
 
-function KeywordCard({ ID, title, acr, desc, category }) {
+function KeywordCard({ id, acronyme, name, description, category }) {
   const styleButton = {
     height: "2.5rem",
     width: "8rem",
@@ -23,14 +23,14 @@ function KeywordCard({ ID, title, acr, desc, category }) {
   };
 
   return (
-    <div key={ID} className="keyword-card">
+    <div key={id} className="keyword-card">
       <div>
         <div className="keyword-card-head">
-          <h2 className="keyword-card-title">{title}</h2>
+          <h2 className="keyword-card-title">{acronyme}</h2>
 
-          <h3 className="keyword-card-acronyme">{acr}</h3>
+          <h3 className="keyword-card-acronyme">{name}</h3>
         </div>
-        <p className="keyword-card-description">{desc}</p>
+        <p className="keyword-card-description">{description}</p>
       </div>
       <div className="keyword-card-foot ">
         <h4 className="keyword-card-category">{category}</h4>
@@ -58,7 +58,7 @@ function KeywordCard({ ID, title, acr, desc, category }) {
               variant="contained"
               sx={styleButton}
               component={Link}
-              to={`/keywords/${title}`}
+              to={`/keywords/${acronyme}`}
             >
               voir plus
             </Button>
@@ -70,10 +70,10 @@ function KeywordCard({ ID, title, acr, desc, category }) {
 }
 
 KeywordCard.propTypes = {
-  ID: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  acr: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  acronyme: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
 };
 

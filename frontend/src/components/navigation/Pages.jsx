@@ -70,7 +70,7 @@ function Pages() {
         to="/keywords"
         onClick={() => handleClickPage("/keywords")}
       >
-        <p className="navbar-pages-text">MOTS CLÉS</p>
+        <p className="navbar-pages-text">MOTS-CLÉS</p>
         <AbcOutlinedIcon className="navbar-icon" />
       </Button>
       <div className="navbar-divider" />

@@ -15,11 +15,24 @@ const browse = async (req, res, next) => {
   }
 };
 
+const browseCatId = async (req, res, next) => {
+  try {
+    // Fetch all items from the database
+    const keywords = await tables.keyword.readAllWithId();
+
+    // Respond with the items in JSON format
+    res.json(keywords);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
     // Fetch a specific item from the database based on the provided ID
-    const keyword = await tables.keyword.readByTitle(req.params.title);
+    const keyword = await tables.keyword.readByAcr(req.params.acronyme);
 
     // If the item is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the item in JSON format
@@ -41,11 +54,18 @@ const edit = async (req, res, next) => {
   const keyword = req.body;
 
   try {
-    // Insert the item into the database
-    const affectedRows = await tables.keyword.update(keyword);
+    const [categoryId] = await tables.keyword_category.readByName(
+      keyword.category
+    );
+    if (categoryId) {
+      keyword.category = categoryId.id;
+      const affectedRows = await tables.keyword.update(keyword);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
-    res.status(201).json({ affectedRows });
+      // Respond with HTTP 201 (Created) and the ID of the newly inserted item
+      res.status(201).json({ affectedRows });
+    } else {
+      res.sendStatus(401);
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -58,11 +78,18 @@ const add = async (req, res, next) => {
   const keyword = req.body;
 
   try {
-    // Insert the item into the database
-    const insertId = await tables.keyword.create(keyword);
+    const [categoryId] = await tables.keyword_category.readByName(
+      keyword.category
+    );
+    if (categoryId) {
+      keyword.category = categoryId.id;
+      const insertId = await tables.keyword.create(keyword);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
-    res.status(201).json({ insertId });
+      // Respond with HTTP 201 (Created) and the ID of the newly inserted item
+      res.status(201).json({ insertId });
+    } else {
+      res.sendStatus(401);
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -89,6 +116,7 @@ const destroy = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
+  browseCatId,
   read,
   edit,
   add,

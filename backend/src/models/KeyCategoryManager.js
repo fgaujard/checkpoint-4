@@ -4,7 +4,7 @@ class KeyCategoryManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "item" as configuration
-    super({ table: "category" });
+    super({ table: "keyword_category" });
   }
 
   // The C of CRUD - Create operation
@@ -23,6 +23,17 @@ class KeyCategoryManager extends AbstractManager {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "keyword" table
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+
+    // Return the array of items
+    return rows;
+  }
+
+  async readByName(category) {
+    // Execute the SQL SELECT query to retrieve all items from the "keyword" table
+    const [rows] = await this.database.query(
+      `SELECT id FROM keyword_category WHERE name = ?`,
+      [category]
+    );
 
     // Return the array of items
     return rows;

@@ -13,11 +13,16 @@ import MDEditor from "@uiw/react-md-editor";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 
+import { usePagesContext } from "../../contexts/PagesContext";
+
 // Import additional style here
 import "../../pages/styles/keyword-detail.scss";
 
 function KeywordDetail({ setIsEdit }) {
-  const keyword = useLoaderData();
+  const { keyword, user } = useLoaderData();
+  const { setActiveButton } = usePagesContext();
+
+  setActiveButton("/keywords");
 
   const handleClick = () => {
     setIsEdit(true);
@@ -51,20 +56,23 @@ function KeywordDetail({ setIsEdit }) {
     <div className="body-content keyword-detail">
       <div className="keyword-detail-header">
         <div>
-          <h2 className="keyword-detail-title">{keyword.title}</h2>
-          <h3>{keyword.acr}</h3>
+          <h2 className="keyword-detail-title">{keyword.acronyme}</h2>
+          <h3>{keyword.name}</h3>
         </div>
         <div>
-          <Button
-            variant="contained"
-            sx={styleEditButton}
-            onClick={handleClick}
-          >
-            <ModeEditOutlineOutlinedIcon
-              sx={{ marginRight: "0.5rem", fontSize: "medium" }}
-            />
-            modifier
-          </Button>
+          {user.admin && (
+            <Button
+              variant="contained"
+              sx={styleEditButton}
+              onClick={handleClick}
+            >
+              <ModeEditOutlineOutlinedIcon
+                sx={{ marginRight: "0.5rem", fontSize: "medium" }}
+              />
+              modifier
+            </Button>
+          )}
+
           <Button
             variant="contained"
             sx={styleBackButton}
@@ -79,7 +87,7 @@ function KeywordDetail({ setIsEdit }) {
         </div>
       </div>
       <div className="keyword-detail-header keyword-detail-category">
-        <p className="keyword-detail-desc">{keyword.desc}</p>
+        <p className="keyword-detail-desc">{keyword.description}</p>
         <h4 className="keyword-detail-category-text">
           Catégorie : {keyword.category}
         </h4>

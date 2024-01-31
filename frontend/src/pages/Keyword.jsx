@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
 import KeywordDetail from "../components/keyword/KeywordDetail";
 import KeywordEdit from "../components/keyword/KeywordEdit";
@@ -6,16 +7,21 @@ import KeywordEdit from "../components/keyword/KeywordEdit";
 import { usePagesContext } from "../contexts/PagesContext";
 
 function Keyword() {
-  const { setActiveButton } = usePagesContext();
-  setActiveButton("/keywords");
+  const { user } = useLoaderData();
 
-  const [isEdit, setIsEdit] = useState(false);
+  if (!user.login) window.location.href = "/login";
+  else {
+    const { setActiveButton } = usePagesContext();
+    setActiveButton("/keywords");
 
-  return isEdit ? (
-    <KeywordEdit setIsEdit={setIsEdit} />
-  ) : (
-    <KeywordDetail setIsEdit={setIsEdit} />
-  );
+    const [isEdit, setIsEdit] = useState(false);
+
+    return isEdit ? (
+      <KeywordEdit setIsEdit={setIsEdit} />
+    ) : (
+      <KeywordDetail setIsEdit={setIsEdit} />
+    );
+  }
 }
 
 export default Keyword;

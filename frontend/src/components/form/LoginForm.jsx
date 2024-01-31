@@ -80,9 +80,12 @@ function LoginForm() {
           toast.success(
             `Connexion réussi ! Bienvenue ${openSession.username}`,
             {
-              autoClose: 3000,
+              autoClose: 1500,
               hideProgressBar: false,
-            }
+            },
+            setTimeout(() => {
+              window.location.href = `/`;
+            }, 1500)
           );
         }
       } catch (err) {

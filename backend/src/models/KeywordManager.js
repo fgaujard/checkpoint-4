@@ -12,11 +12,11 @@ class KeywordManager extends AbstractManager {
   async create(keyword) {
     // Execute the SQL INSERT query to add a new keyword to the "keyword" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (title, acr, \`desc\`, content, category) VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (acronyme, name, description, content, category_id) VALUES (?, ?, ?, ?, ?)`,
       [
-        keyword.title,
-        keyword.acr,
-        keyword.desc,
+        keyword.acronyme,
+        keyword.name,
+        keyword.description,
         keyword.content,
         keyword.category,
       ]
@@ -27,29 +27,31 @@ class KeywordManager extends AbstractManager {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "keyword" table
+    const [rows] = await this.database.query(`
+    SELECT keyword.id, keyword.acronyme, keyword.name, keyword.description, keyword.content, keyword_category.name as category
+    FROM ${this.table}
+    LEFT JOIN keyword_category ON keyword.category_id = keyword_category.id
+    ORDER BY keyword.acronyme ASC
+  `);
+    return rows;
+  }
+
+  async readAllWithId() {
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
-
-    // Return the array of items
     return rows;
   }
 
-  async readByTitle(title) {
+  // The R of CRUD - Create operation
+
+  async readByAcr(acronyme) {
     // Execute the SQL SELECT query to retrieve one item from the "keyword" table
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE title = ?`,
-      [title]
-    );
-
-    // Return the array of item
-    return rows;
-  }
-
-  async readByAcr(acr) {
-    // Execute the SQL SELECT query to retrieve one item from the "keyword" table
-    const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE acr = ?`,
-      [acr]
+      `
+    SELECT keyword.id, keyword.acronyme, keyword.name, keyword.description, keyword.content, keyword_category.name as category
+    FROM ${this.table}
+    LEFT JOIN keyword_category ON keyword.category_id = keyword_category.id
+    WHERE acronyme = ?`,
+      [acronyme]
     );
 
     // Return the array of item
@@ -61,11 +63,11 @@ class KeywordManager extends AbstractManager {
   async update(keyword) {
     // Execute the SQL INSERT query to add a new keyword to the "keyword" table
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET title = ?, acr = ?, \`desc\` = ?, content = ?, category = ? WHERE id = ?`,
+      `UPDATE ${this.table} SET acronyme = ?, name = ?, description = ?, content = ?, category_id = ? WHERE id = ?`,
       [
-        keyword.title,
-        keyword.acr,
-        keyword.desc,
+        keyword.acronyme,
+        keyword.name,
+        keyword.description,
         keyword.content,
         keyword.category,
         keyword.id,

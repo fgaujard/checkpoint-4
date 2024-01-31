@@ -1,5 +1,6 @@
 // Import React here
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // Import mUI components here
 import AppBar from "@mui/material/AppBar";
@@ -16,7 +17,7 @@ import { usePagesContext } from "../../contexts/PagesContext";
 // import additional style here
 import "../styles/navbar.scss";
 
-function HeaderMobile() {
+function HeaderMobile({ isLogin, isAdmin, username }) {
   const { handleClickPage } = usePagesContext();
 
   const styleButton = {
@@ -51,10 +52,15 @@ function HeaderMobile() {
             <SchoolOutlinedIcon />
           </div>
         </Button>
-        <AccountMenu />
+        <AccountMenu isLogin={isLogin} isAdmin={isAdmin} username={username} />
       </AppBar>
     </div>
   );
 }
+HeaderMobile.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+};
 
 export default HeaderMobile;

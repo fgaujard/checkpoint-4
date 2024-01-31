@@ -17,6 +17,7 @@ router.get("/users/:username", userController.readByUsername); // Route to get a
 
 router.post("/register", AuthMiddleware.hashPwd, userController.add);
 router.post("/login", AuthMiddleware.login); // Route to add a new user
+router.get("/verify-token", AuthMiddleware.verifyToken); // Route to add a new user
 
 /* ************************************************************************* */
 // Recap SACOD
@@ -41,7 +42,8 @@ router.delete("/recap/:id", recapController.destroy); // Route to get a specific
 const keywordController = require("./controllers/keywordController");
 
 router.get("/keyword", keywordController.browse); // Route to get a list of keywords
-router.get("/keyword/:title", keywordController.read); // Route to get a specific keyword by title
+router.get("/keyword-with-id", keywordController.browseCatId);
+router.get("/keyword/:acronyme", keywordController.read); // Route to get a specific keyword by title
 router.post("/keyword-create", keywordController.add); // Route to get a list of keywords
 router.put("/keyword-edit", keywordController.edit); // Route to edit a specific keyword by id
 router.delete("/keyword/:id", keywordController.destroy); // Route to get a specific keyword by title

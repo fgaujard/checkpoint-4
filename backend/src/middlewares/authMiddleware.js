@@ -32,12 +32,19 @@ const login = async (req, res, next) => {
       if (verified) {
         // Create a token for open & keep the user session as logged
         const token = jwt.sign(
-          { id: user.id, username: user.username },
+          {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            is_admin: user.is_admin,
+            role: user.role_id,
+            team: user.team_id,
+          },
           process.env.APP_SECRET,
           { expiresIn: "1h" }
         );
         // Respond with the Token of the user, in JSON format
-        res.cookie("wiki_wilder_token", token, {
+        res.cookie("token", token, {
           httpOnly: true,
           maxAge: 3600000, // 1h in ms
         });
@@ -64,11 +71,12 @@ const verifyToken = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.APP_SECRET);
       const user = await tables.user.read(decoded.id);
 
-      if (user) next();
+      if (user) res.status(200).send(decoded);
       else res.status(401).json({ error: "The token is invalid" });
     }
   } catch (err) {
     res.status(401).json({ error: "Internal error" });
+    next(err);
   }
 };
 
