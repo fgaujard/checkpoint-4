@@ -38,7 +38,7 @@ function HeaderMobile({ isLogin, isAdmin, username }) {
           height: "3.5rem",
         }}
       >
-        <div style={{ width: "53px" }} />
+        {isLogin && <div style={{ width: "53px" }} />}
         <Button
           color="inherit"
           sx={styleButton}

@@ -75,7 +75,11 @@ router.delete("/keyfav/:id", keyFavController.destroy); // Route to get a specif
 /* ************************************************************************* */
 
 // Import keywordController module for handling item-related operations
-// const basicsController = require("./controllers/basicsController");
+const basicsController = require("./controllers/basicsController");
+
+router.get("/basics", basicsController.browse); // Route to get a list of keywords
+router.get("/basics/:name", basicsController.read);
+router.put("/basics", basicsController.edit);
 
 /* ************************************************************************* */
 // Packages

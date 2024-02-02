@@ -10,6 +10,8 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 // Import mUI icons here
 import Visibility from "@mui/icons-material/Visibility";
@@ -20,10 +22,12 @@ import { styleInput, styleButton } from "../../mUI_style";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const [openSession, setOpenSession] = useState({
     username: "",
     password: "",
+    checked,
   });
 
   const handleChange = (event) => {
@@ -35,6 +39,14 @@ function LoginForm() {
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleClickChecked = () => {
+    setChecked((prevChecked) => !prevChecked);
+    setOpenSession((prevSession) => ({
+      ...prevSession,
+      checked: !prevSession.checked,
+    }));
   };
 
   const handleSubmitLogin = async () => {
@@ -144,10 +156,16 @@ function LoginForm() {
       <div
         style={{
           display: "flex",
-          justifyContent: "right",
+          justifyContent: "space-between",
           marginTop: "0.5rem",
         }}
       >
+        <FormControlLabel
+          name="keepCo"
+          control={<Checkbox checked={checked} onClick={handleClickChecked} />}
+          label="Rester connecté"
+          labelPlacement="end"
+        />
         <Button
           variant="contained"
           sx={styleButton}

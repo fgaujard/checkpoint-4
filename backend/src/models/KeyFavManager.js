@@ -6,7 +6,6 @@ class CommentManager extends AbstractManager {
   }
 
   async create(id, userId) {
-    console.info("create", id, userId);
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (keyword_id, user_id) VALUES (?, ?)`,
       [id, userId]

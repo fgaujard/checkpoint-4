@@ -14,6 +14,8 @@ import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 
 import { usePagesContext } from "../../contexts/PagesContext";
 
+import { navStyleButton, navActiveStyleButton } from "../../mUI_style";
+
 function Pages() {
   const { activeButton } = usePagesContext();
 
@@ -21,29 +23,14 @@ function Pages() {
     return activeButton === buttonName;
   };
 
-  const styleButton = {
-    minWidth: "1rem",
-    backgroundColor: "#292929",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.15)",
-    },
-  };
-
-  const activeStyleButton = {
-    minWidth: "1rem",
-    color: "#292929",
-    backgroundColor: "#f6f6f6",
-    "&:hover": {
-      backgroundColor: "#f6f6f6",
-    },
-  };
-
   return (
     <div className="navbar-pages">
       <div className="navbar-divider navbar-divider-first" />
       <Button
         color="inherit"
-        sx={isButtonActive("/culture-dev") ? activeStyleButton : styleButton}
+        sx={
+          isButtonActive("/culture-dev") ? navActiveStyleButton : navStyleButton
+        }
         component={Link}
         to="/culture-dev"
       >
@@ -53,7 +40,7 @@ function Pages() {
       <div className="navbar-divider" />
       <Button
         color="inherit"
-        sx={isButtonActive("/recap") ? activeStyleButton : styleButton}
+        sx={isButtonActive("/recap") ? navActiveStyleButton : navStyleButton}
         component={Link}
         to="/recap"
       >
@@ -63,7 +50,7 @@ function Pages() {
       <div className="navbar-divider" />
       <Button
         color="inherit"
-        sx={isButtonActive("/keywords") ? activeStyleButton : styleButton}
+        sx={isButtonActive("/keywords") ? navActiveStyleButton : navStyleButton}
         component={Link}
         to="/keywords"
       >
@@ -73,7 +60,7 @@ function Pages() {
       <div className="navbar-divider" />
       <Button
         color="inherit"
-        sx={isButtonActive("/basics") ? activeStyleButton : styleButton}
+        sx={isButtonActive("/basics") ? navActiveStyleButton : navStyleButton}
         component={Link}
         to="/basics"
       >
@@ -83,7 +70,7 @@ function Pages() {
       <div className="navbar-divider" />
       <Button
         color="inherit"
-        sx={isButtonActive("/packages") ? activeStyleButton : styleButton}
+        sx={isButtonActive("/packages") ? navActiveStyleButton : navStyleButton}
         component={Link}
         to="/packages"
       >
@@ -93,7 +80,7 @@ function Pages() {
       <div className="navbar-divider" />
       <Button
         color="inherit"
-        sx={isButtonActive("/map") ? activeStyleButton : styleButton}
+        sx={isButtonActive("/map") ? navActiveStyleButton : navStyleButton}
         component={Link}
         to="/map"
       >

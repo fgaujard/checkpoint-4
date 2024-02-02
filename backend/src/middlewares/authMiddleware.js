@@ -25,6 +25,19 @@ const login = async (req, res, next) => {
     // Verify if the username exist in the database
     const user = await tables.user.readByUsername(req.body.username);
 
+    const time = {
+      text: "",
+      int: 0,
+    };
+
+    if (req.body.checked) {
+      time.text = "731h";
+      time.int = parseInt(2.63 * 10 ** 9, 10);
+    } else {
+      time.text = "1h";
+      time.int = 3600000;
+    }
+
     if (user) {
       // Verify if the password match with the hashed in the database
       const verified = await argon2.verify(user.password, req.body.password);
@@ -41,13 +54,14 @@ const login = async (req, res, next) => {
             team: user.team_id,
           },
           process.env.APP_SECRET,
-          { expiresIn: "1h" }
+          { expiresIn: `${time.text}` }
         );
         // Respond with the Token of the user, in JSON format
         res.cookie("wiki_wilder_js_token", token, {
           httpOnly: true,
-          maxAge: 3600000, // 1h in ms
+          maxAge: `${time.int}`, // 1h in ms
         });
+        console.info(time);
         res.status(200).send(token);
       } else {
         res.sendStatus(422);

@@ -67,7 +67,7 @@ CREATE TABLE `keyword` (
 CREATE TABLE `basics` (
     `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(25) UNIQUE NOT NULL,
-    `description` VARCHAR(150) UNIQUE NOT NULL,
+    `description` VARCHAR(200) UNIQUE NOT NULL,
     `content` TEXT NOT NULL
 );
 

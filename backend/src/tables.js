@@ -9,6 +9,7 @@ const KeyCategoryManager = require("./models/KeyCategoryManager");
 const FavKeyManager = require("./models/KeyFavManager");
 const PackageManager = require("./models/PackageManager");
 const PackCategoryManager = require("./models/PackCategoryManager");
+const BasicsManager = require("./models/BasicsManager");
 
 const managers = [
   UserManager,
@@ -17,6 +18,7 @@ const managers = [
   FavKeyManager,
   PackageManager,
   PackCategoryManager,
+  BasicsManager,
   // Add other managers here
 ];
 

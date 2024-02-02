@@ -3,7 +3,6 @@ import { usePagesContext } from "../contexts/PagesContext";
 
 function Profil() {
   const user = useLoaderData();
-  console.info(user);
 
   if (!user.login) window.location.href = "/login";
   else {

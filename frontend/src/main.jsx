@@ -21,6 +21,8 @@ import Keyword from "./pages/Keyword";
 import KeywordCreate from "./components/keyword/KeywordCreate";
 
 import Basics from "./pages/Basics";
+import EditBasic from "./pages/EditBasic";
+
 import Map from "./pages/Map";
 
 import Login from "./pages/Login";
@@ -94,7 +96,7 @@ function fetchRecap() {
 /* ************************************************************************ */
 /*         Fetch datas relative of "basics tutorial" for my rooter          */
 /* ************************************************************************ */
-/*
+
 function fetchBasics() {
   return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/basics`).then(
     (basics) => {
@@ -107,7 +109,20 @@ function fetchBasics() {
     }
   );
 }
-*/
+
+function fetchBasicByName(name) {
+  return fetch(`${import.meta.env.VITE_BACKEND_URL}/api/basics/${name}`).then(
+    (basic) => {
+      // check if the response is ok
+      if (!basic.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // return all datas from basics tutorials in JSON
+      return basic.json();
+    }
+  );
+}
+
 /* ************************************************************************ */
 /*              Fetch data relative of "users" for my rooter                */
 /* ************************************************************************ */
@@ -220,8 +235,23 @@ const router = createBrowserRouter([
       {
         path: "/basics",
         element: <Basics />,
-        loader: () => {
-          return VerifyToken();
+        loader: async () => {
+          const [basics, user] = await Promise.all([
+            fetchBasics(),
+            VerifyToken(),
+          ]);
+          return { basics, user };
+        },
+      },
+      {
+        path: "/basics-editor/:name",
+        element: <EditBasic />,
+        loader: async ({ params }) => {
+          const [basic, user] = await Promise.all([
+            fetchBasicByName(params.name),
+            VerifyToken(),
+          ]);
+          return { basic, user };
         },
       },
       {

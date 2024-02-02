@@ -21,14 +21,18 @@ import "@uiw/react-markdown-preview/markdown.css";
 
 import { usePagesContext } from "../../contexts/PagesContext";
 
-import { styleBackButton } from "../../mUI_style";
+import { styleBackButton, favorite } from "../../mUI_style";
 
 // Import additional style here
 import "../../pages/styles/keyword-detail.scss";
 
 function KeywordDetail({ setIsEdit }) {
-  const { keyword, user } = useLoaderData();
   const { setActiveButton } = usePagesContext();
+
+  setActiveButton("/keywords");
+
+  const { keyword, user } = useLoaderData();
+
   const [isFav, setIsFav] = useState(false);
 
   const { id } = keyword;
@@ -66,8 +70,6 @@ function KeywordDetail({ setIsEdit }) {
         });
     }
   };
-
-  setActiveButton("/keywords");
 
   const handleClick = () => {
     setIsEdit(true);
@@ -119,20 +121,7 @@ function KeywordDetail({ setIsEdit }) {
             retour
           </Button>
           <Checkbox
-            sx={{
-              marginLeft: "1rem",
-              height: "2.5rem",
-              width: "2.5rem",
-              color: "#e6e6e6",
-              borderRadius: "12px",
-              background: "linear-gradient(145deg, #2c2c2c, #252525)",
-              boxShadow: "3px 3px 6px #c4c4c4, -3px -3px 6px #ffffff",
-              transition: "transform 250ms",
-              "&:hover": {
-                backgroundColor: "#292929",
-                transform: "scale(0.9)",
-              },
-            }}
+            sx={favorite}
             checked={isFav}
             onClick={handleClickFav}
             icon={<BookmarkBorderIcon />}
