@@ -3,15 +3,15 @@ const jwt = require("jsonwebtoken");
 
 const tables = require("../tables");
 
-// Middleware pour hasher le password dans la DB lors de l'ajout d'un utilisateur
+// Middleware to hash the password in the database when adding a user
 const hashPwd = async (req, res, next) => {
   try {
-    // Vérifie si le password est présent dans le corps de la requête
+    // Check if the password is present in the request body
     if (req.body.password) {
-      // Hash le password avec Argon2
+      // Hash the password using Argon2
       const hashedPassword = await argon2.hash(req.body.password);
 
-      // Ecrase le password en clair par le password hashé (il le remplace) dans le corps de la requête
+      // Replace the plain password with the hashed password in the request body
       req.body.password = hashedPassword;
     }
     next();
