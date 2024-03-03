@@ -61,7 +61,6 @@ const login = async (req, res, next) => {
           httpOnly: true,
           maxAge: `${time.int}`, // 1h in ms
         });
-        console.info(time);
         res.status(200).send(token);
       } else {
         res.sendStatus(422);
